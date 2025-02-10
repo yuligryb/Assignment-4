@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastel Canvas Fun</title>
+    <style>
+        body {
+            background-color: #FFE4E1;
+            color: #FF69B4;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+        }
+        canvas {
+            background-color: #FFF0F5;
+            display: block;
+            margin: 20px auto;
+            border-radius: 15px;
+            border: 3px dashed #FFB6C1;
+        }
+        button {
+            background-color: #FFB6C1;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #FF69B4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pastel Canvas Playground</h1>
+    <canvas id="drawingCanvas" width="500" height="400"></canvas>
+    <br>
+    <button onclick="clearCanvas()">Clear the Magic!</button>
+    
+    <script>
+        const canvas = document.getElementById("drawingCanvas");
+        const ctx = canvas.getContext("2d");
+        const shapes = [];
+
+        function drawShapes() {
+            // Pink Rectangle
+            ctx.fillStyle = "#FFB6C1";
+            ctx.fillRect(50, 50, 150, 100);
+            shapes.push({ type: "rect", x: 50, y: 50, width: 150, height: 100 });
+            
+            // Lavender Circle
+            ctx.fillStyle = "#DDA0DD";
+            ctx.beginPath();
+            ctx.arc(300, 100, 50, 0, Math.PI * 2);
+            ctx.fill();
+            shapes.push({ type: "circle", x: 300, y: 100, radius: 50 });
+            
+            // Mint Green Triangle
+            ctx.fillStyle = "#98FB98";
+            ctx.beginPath();
+            ctx.moveTo(400, 200);
+            ctx.lineTo(350, 300);
+            ctx.lineTo(450, 300);
+            ctx.closePath();
+            ctx.fill();
+            shapes.push({ type: "triangle", vertices: [[400, 200], [350, 300], [450, 300]] });
+            
+            // Soft Yellow Line
+            ctx.strokeStyle = "#FFFACD";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(canvas.width, canvas.height);
+            ctx.stroke();
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            shapes.length = 0;
+        }
+
+        function getRandomColor() {
+            const pastelColors = ["#FFB6C1", "#DDA0DD", "#98FB98", "#ADD8E6", "#FFFACD"];
+            return pastelColors[Math.floor(Math.random() * pastelColors.length)];
+        }
+
+        function drawRandomShape(x, y) {
+            const shapeType = ["rect", "circle", "triangle"][Math.floor(Math.random() * 3)];
+            ctx.fillStyle = getRandomColor();
+
+            if (shapeType === "rect") {
+                ctx.fillRect(x, y, 50, 50);
+                shapes.push({ type: "rect", x, y, width: 50, height: 50 });
+            } else if (shapeType === "circle") {
+                ctx.beginPath();
+                ctx.arc(x, y, 25, 0, Math.PI * 2);
+                ctx.fill();
+                shapes.push({ type: "circle", x, y, radius: 25 });
+            } else if (shapeType === "triangle") {
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(x - 30, y + 50);
+                ctx.lineTo(x + 30, y + 50);
+                ctx.closePath();
+                ctx.fill();
+                shapes.push({ type: "triangle", vertices: [[x, y], [x - 30, y + 50], [x + 30, y + 50]] });
+            }
+        }
+
+        canvas.addEventListener("click", (event) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            
+            for (let i = shapes.length - 1; i >= 0; i--) {
+                if (isInsideShape(shapes[i], x, y)) {
+                    shapes.splice(i, 1);
+                    clearCanvas();
+                    shapes.forEach(shape => drawRandomShape(shape.x, shape.y));
+                    return;
+                }
+            }
+            drawRandomShape(x, y);
+        });
+        
+        drawShapes();
+    </script>
+</body>
+</html>
