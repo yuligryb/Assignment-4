@@ -1,3 +1,4 @@
+Used ChatGPT
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,33 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yuli's Assignment</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;700&display=swap');
+        
         body {
-            background-color: #1e1e2e;
-            color: #cdd6f4;
-            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #5d576b;
+            font-family: 'Quicksand', sans-serif;
             text-align: center;
         }
         h1 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-top: 20px;
+            color: #ff80a4;
         }
         canvas {
-            background-color: #313244;
-            border: 2px solid #cdd6f4;
+            background-color: #dee2e6;
+            border: 3px dashed #ff80a4;
+            border-radius: 15px;
             margin-top: 20px;
         }
         button {
             margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            background-color: #585b70;
-            color: #cdd6f4;
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            background-color: #ffbe76;
+            color: #ffffff;
             border: none;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 12px;
+            font-weight: bold;
         }
         button:hover {
-            background-color: #45475a;
+            background-color: #ff9f1a;
         }
     </style>
 </head>
@@ -45,37 +51,66 @@
         const ctx = canvas.getContext("2d");
 
         function drawShapes() {
-            // Draw Blue Rectangle
-            ctx.fillStyle = "blue";
+            // Draw Teal Rectangle
+            ctx.fillStyle = "#62d2a2";
             ctx.fillRect(50, 50, 150, 100);
 
-            // Draw Red Circle
+            // Draw Coral Circle
             ctx.beginPath();
             ctx.arc(300, 100, 50, 0, Math.PI * 2);
-            ctx.fillStyle = "red";
+            ctx.fillStyle = "#ff7f50";
             ctx.fill();
 
-            // Draw Green Triangle
+            // Draw Lavender Triangle
             ctx.beginPath();
             ctx.moveTo(200, 250);
             ctx.lineTo(250, 350);
             ctx.lineTo(150, 350);
             ctx.closePath();
-            ctx.fillStyle = "green";
+            ctx.fillStyle = "#b19cd9";
             ctx.fill();
 
-            // Draw Yellow Line
+            // Draw Golden Line
             ctx.beginPath();
             ctx.moveTo(0, 0);
             ctx.lineTo(canvas.width, canvas.height);
-            ctx.strokeStyle = "yellow";
-            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#ffd700";
+            ctx.lineWidth = 3;
             ctx.stroke();
         }
         drawShapes();
 
         function clearCanvas() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        canvas.addEventListener("click", function(event) {
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            drawRandomShape(x, y);
+        });
+
+        function drawRandomShape(x, y) {
+            const colors = ["#ffb3c1", "#62d2a2", "#ff7f50", "#b19cd9", "#ffd700", "#ff9a76", "#e0b1cb"];
+            const shapeType = Math.floor(Math.random() * 3);
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            
+            if (shapeType === 0) { // Rectangle
+                ctx.fillRect(x - 25, y - 25, 50, 50);
+            } else if (shapeType === 1) { // Circle
+                ctx.arc(x, y, 25, 0, Math.PI * 2);
+                ctx.fill();
+            } else { // Triangle
+                ctx.moveTo(x, y - 30);
+                ctx.lineTo(x - 25, y + 20);
+                ctx.lineTo(x + 25, y + 20);
+                ctx.closePath();
+                ctx.fill();
+            }
         }
     </script>
 </body>
