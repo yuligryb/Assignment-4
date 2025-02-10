@@ -1,4 +1,3 @@
-Used ChatGPT
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,84 +5,78 @@ Used ChatGPT
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yuli's Assignment</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap');
-        
         body {
-            background-color: #FAE3D9;
-            color: #333;
-            font-family: 'Nunito', sans-serif;
+            background-color: #1e1e2e;
+            color: #cdd6f4;
+            font-family: 'Poppins', sans-serif;
             text-align: center;
         }
+        h1 {
+            font-size: 2rem;
+            margin-top: 20px;
+        }
         canvas {
-            background-color: #FFFCF2;
-            display: block;
-            margin: auto;
-            border-radius: 12px;
-            border: 3px solid #FFB6C1;
-            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+            background-color: #313244;
+            border: 2px solid #cdd6f4;
+            margin-top: 20px;
         }
         button {
-            background-color: #FF69B4;
-            color: white;
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #585b70;
+            color: #cdd6f4;
             border: none;
-            padding: 12px 24px;
-            font-size: 18px;
             cursor: pointer;
-            border-radius: 8px;
-            font-weight: 600;
-            font-family: 'Nunito', sans-serif;
+            border-radius: 5px;
         }
         button:hover {
-            background-color: #FF1493;
+            background-color: #45475a;
         }
     </style>
 </head>
 <body>
-    <h2>Yuli's Canvas Assignment</h2>
-    <canvas id="drawingCanvas" width="500" height="400"></canvas>
+    <h1>Yuli's Assignment</h1>
+    <canvas id="canvas" width="500" height="400"></canvas>
     <br>
-    <button onclick="clearCanvas()">Clear</button>
-    
+    <button onclick="clearCanvas()">Clear Canvas</button>
     <script>
-        const canvas = document.getElementById("drawingCanvas");
+        const canvas = document.getElementById("canvas");
         const ctx = canvas.getContext("2d");
 
         function drawShapes() {
-            console.log("Drawing shapes...");
-
-            ctx.fillStyle = "#FFB6C1";
+            // Draw Blue Rectangle
+            ctx.fillStyle = "blue";
             ctx.fillRect(50, 50, 150, 100);
-            
-            ctx.fillStyle = "#87CEEB";
+
+            // Draw Red Circle
             ctx.beginPath();
             ctx.arc(300, 100, 50, 0, Math.PI * 2);
+            ctx.fillStyle = "red";
             ctx.fill();
 
-            ctx.fillStyle = "#98FB98";
+            // Draw Green Triangle
             ctx.beginPath();
-            ctx.moveTo(400, 200);
-            ctx.lineTo(350, 300);
-            ctx.lineTo(450, 300);
+            ctx.moveTo(200, 250);
+            ctx.lineTo(250, 350);
+            ctx.lineTo(150, 350);
             ctx.closePath();
+            ctx.fillStyle = "green";
             ctx.fill();
 
-            ctx.strokeStyle = "#FFD700";
-            ctx.lineWidth = 3;
+            // Draw Yellow Line
             ctx.beginPath();
             ctx.moveTo(0, 0);
             ctx.lineTo(canvas.width, canvas.height);
+            ctx.strokeStyle = "yellow";
+            ctx.lineWidth = 2;
             ctx.stroke();
         }
+        drawShapes();
 
         function clearCanvas() {
-            console.log("Clearing canvas...");
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = "#FFFCF2";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
-
-        drawShapes();
     </script>
 </body>
 </html>
