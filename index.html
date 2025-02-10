@@ -1,64 +1,63 @@
-Used ChatGPT
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pastel Canvas Fun</title>
+    <title>Yuli's Assignment</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap');
+        
         body {
-            background-color: #FFE4E1;
-            color: #FF69B4;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #FAE3D9;
+            color: #333;
+            font-family: 'Nunito', sans-serif;
             text-align: center;
         }
         canvas {
-            background-color: #FFF0F5;
+            background-color: #FFFCF2;
             display: block;
-            margin: 20px auto;
-            border-radius: 15px;
-            border: 3px dashed #FFB6C1;
+            margin: auto;
+            border-radius: 12px;
+            border: 3px solid #FFB6C1;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
         }
         button {
-            background-color: #FFB6C1;
+            background-color: #FF69B4;
             color: white;
             border: none;
             padding: 12px 24px;
             font-size: 18px;
             cursor: pointer;
             border-radius: 8px;
-            font-weight: bold;
+            font-weight: 600;
+            font-family: 'Nunito', sans-serif;
         }
         button:hover {
-            background-color: #FF69B4;
+            background-color: #FF1493;
         }
     </style>
 </head>
 <body>
-    <h1>Pastel Canvas Playground</h1>
+    <h2>Yuli's Canvas Assignment</h2>
     <canvas id="drawingCanvas" width="500" height="400"></canvas>
     <br>
-    <button onclick="clearCanvas()">Clear the Magic!</button>
+    <button onclick="clearCanvas()">Clear</button>
     
     <script>
         const canvas = document.getElementById("drawingCanvas");
         const ctx = canvas.getContext("2d");
-        const shapes = [];
 
         function drawShapes() {
-            // Pink Rectangle
+            console.log("Drawing shapes...");
+
             ctx.fillStyle = "#FFB6C1";
             ctx.fillRect(50, 50, 150, 100);
-            shapes.push({ type: "rect", x: 50, y: 50, width: 150, height: 100 });
             
-            // Lavender Circle
-            ctx.fillStyle = "#DDA0DD";
+            ctx.fillStyle = "#87CEEB";
             ctx.beginPath();
             ctx.arc(300, 100, 50, 0, Math.PI * 2);
             ctx.fill();
-            shapes.push({ type: "circle", x: 300, y: 100, radius: 50 });
-            
-            // Mint Green Triangle
+
             ctx.fillStyle = "#98FB98";
             ctx.beginPath();
             ctx.moveTo(400, 200);
@@ -66,10 +65,8 @@ Used ChatGPT
             ctx.lineTo(450, 300);
             ctx.closePath();
             ctx.fill();
-            shapes.push({ type: "triangle", vertices: [[400, 200], [350, 300], [450, 300]] });
-            
-            // Soft Yellow Line
-            ctx.strokeStyle = "#FFFACD";
+
+            ctx.strokeStyle = "#FFD700";
             ctx.lineWidth = 3;
             ctx.beginPath();
             ctx.moveTo(0, 0);
@@ -78,54 +75,13 @@ Used ChatGPT
         }
 
         function clearCanvas() {
+            console.log("Clearing canvas...");
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            shapes.length = 0;
-        }
-
-        function getRandomColor() {
-            const pastelColors = ["#FFB6C1", "#DDA0DD", "#98FB98", "#ADD8E6", "#FFFACD"];
-            return pastelColors[Math.floor(Math.random() * pastelColors.length)];
-        }
-
-        function drawRandomShape(x, y) {
-            const shapeType = ["rect", "circle", "triangle"][Math.floor(Math.random() * 3)];
-            ctx.fillStyle = getRandomColor();
-
-            if (shapeType === "rect") {
-                ctx.fillRect(x, y, 50, 50);
-                shapes.push({ type: "rect", x, y, width: 50, height: 50 });
-            } else if (shapeType === "circle") {
-                ctx.beginPath();
-                ctx.arc(x, y, 25, 0, Math.PI * 2);
-                ctx.fill();
-                shapes.push({ type: "circle", x, y, radius: 25 });
-            } else if (shapeType === "triangle") {
-                ctx.beginPath();
-                ctx.moveTo(x, y);
-                ctx.lineTo(x - 30, y + 50);
-                ctx.lineTo(x + 30, y + 50);
-                ctx.closePath();
-                ctx.fill();
-                shapes.push({ type: "triangle", vertices: [[x, y], [x - 30, y + 50], [x + 30, y + 50]] });
-            }
-        }
-
-        canvas.addEventListener("click", (event) => {
-            const rect = canvas.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
             
-            for (let i = shapes.length - 1; i >= 0; i--) {
-                if (isInsideShape(shapes[i], x, y)) {
-                    shapes.splice(i, 1);
-                    clearCanvas();
-                    shapes.forEach(shape => drawRandomShape(shape.x, shape.y));
-                    return;
-                }
-            }
-            drawRandomShape(x, y);
-        });
-        
+            ctx.fillStyle = "#FFFCF2";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
         drawShapes();
     </script>
 </body>
